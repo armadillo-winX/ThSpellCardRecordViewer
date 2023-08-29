@@ -1,6 +1,8 @@
 ﻿global using System;
 global using System.IO;
 global using System.Windows;
+
+global using ThSpellCardRecordViewer.Extensions;
 global using ThSpellCardRecordViewer.Score;
 
 using System.Collections.Generic;
