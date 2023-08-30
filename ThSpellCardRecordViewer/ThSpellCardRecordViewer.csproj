@@ -18,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Score\Th07\" />
     <Folder Include="Score\Th08\" />
     <Folder Include="Score\Th11\" />
     <Folder Include="Score\Th10\" />
