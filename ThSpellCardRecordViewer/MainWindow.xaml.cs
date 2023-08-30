@@ -8,6 +8,7 @@ global using ThSpellCardRecordViewer.Score;
 using Microsoft.Win32;
 using System.Collections.Generic;
 using System.Linq;
+using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -42,8 +43,7 @@ namespace ThSpellCardRecordViewer
 
                 try
                 {
-                    OpenScoreFileButton.IsEnabled = false;
-                    GameComboBox.IsEnabled = false;
+                    EnableLimitationMode(true);
                     await Task.Run(()
                         => SpellCardRecord.GetSpellCardRecord(gameId, displayNotChallengedCardName)
                     );
@@ -51,8 +51,9 @@ namespace ThSpellCardRecordViewer
                     {
                         SpellCardRecordDataGrid.DataContext = SpellCardRecord.SpellCardRecordDataLists;
                     }
-                    OpenScoreFileButton.IsEnabled = true;
-                    GameComboBox.IsEnabled = true;
+
+
+                    EnableLimitationMode(false);
                 }
                 catch (Exception ex)
                 {
@@ -60,6 +61,13 @@ namespace ThSpellCardRecordViewer
                         MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+        }
+
+        private void EnableLimitationMode(bool enabled)
+        {
+            GameComboBox.IsEnabled = !enabled;
+            OpenScoreFileMenuItem.IsEnabled = !enabled;
+            OpenScoreFileButton.IsEnabled = !enabled;
         }
 
         private string GetSeletedGameId()
