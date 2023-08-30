@@ -7,6 +7,50 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="400" Width="650">
     <Grid>
+        <Menu x:Name="MainMenu" Height="18" VerticalAlignment="Top">
+            <MenuItem Header="ファイル(_F)">
+                <MenuItem x:Name="ExitMenuItem" Header="アプリケーションを終了(_X)" Click="ExitMenuItemClick"/>
+            </MenuItem>
+            <MenuItem Header="オプション(_O)">
+                <MenuItem x:Name="DisplayNotChallengedCardMenuItem" 
+                          Header="未挑戦のスペルカード名を表示する" IsCheckable="True"/>
+            </MenuItem>
+            <MenuItem Header="ヘルプ(_H)"></MenuItem>
+        </Menu>
+        <ComboBox x:Name="GameComboBox"
+                  HorizontalAlignment="Left"
+                  Margin="10,23,0,0" VerticalAlignment="Top" Width="120">
+            <ComboBoxItem Uid="Th06" Content="東方紅魔郷"/>
+            <ComboBoxItem Uid="Th07" Content="東方妖々夢"/>
+        </ComboBox>
+        <Label Content="スコアファイル:" HorizontalAlignment="Left" Margin="135,21,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="ScoreFilePathBox"
+                 Margin="213,23,57,0"
+                 IsReadOnly="True"
+                   TextWrapping="NoWrap" Text="" VerticalAlignment="Top" Height="20"/>
+        <Button x:Name="BrowseScoreFileButton"
+                Content="参照(_B)" HorizontalAlignment="Right" Margin="0,23,10,0" VerticalAlignment="Top" Click="BrowseScoreFileButtonClick"/>
+        <DataGrid x:Name="SpellCardRecordDataGrid"
+                  Margin="0,52,0,0"
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Width="30" IsReadOnly="True"
+                                            Binding="{Binding CardId}"/>
+                <DataGridTextColumn Header="スペルカード名" Width="225" IsReadOnly="True"
+                                            Binding="{Binding CardName}"/>
+                <DataGridTextColumn Header="取得数" Width="50" IsReadOnly="True"
+                                            Binding="{Binding Get}"/>
+                <DataGridTextColumn Header="挑戦数" Width="50" IsReadOnly="True"
+                                            Binding="{Binding Challenge}"/>
+                <DataGridTextColumn Header="取得率" Width="75" IsReadOnly="True"
+                                            Binding="{Binding GetRate}"/>
+                <DataGridTextColumn Header="発動場所" Width="110" IsReadOnly="True"
+                                            Binding="{Binding Place}"/>
+                <DataGridTextColumn Header="術者" Width="135" IsReadOnly="True"
+                                            Binding="{Binding Enemy}"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
     </Grid>
 </Window>

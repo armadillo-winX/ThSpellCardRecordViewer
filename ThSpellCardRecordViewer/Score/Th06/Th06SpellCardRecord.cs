@@ -81,7 +81,7 @@ namespace ThSpellCardRecordViewer.Score.Th06
 
             SpellCardRecordData spellCardRecordData = new()
             {
-                CardID = cardId.ToString(),
+                CardId = cardId.ToString(),
                 CardName = cardName,
                 Get = get.ToString(),
                 Challenge = challenge.ToString(),

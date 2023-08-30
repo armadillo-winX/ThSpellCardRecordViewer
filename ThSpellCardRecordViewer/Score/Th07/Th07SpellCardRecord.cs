@@ -93,7 +93,7 @@ namespace ThSpellCardRecordViewer.Score.Th07
 
             SpellCardRecordData spellCardRecordList = new()
             {
-                CardID = cardId.ToString(),
+                CardId = cardId.ToString(),
                 CardName = cardName,
                 Challenge = allChangeCount.ToString(),
                 Get = allGetCount.ToString(),

@@ -11,11 +11,17 @@ namespace ThSpellCardRecordViewer.Score
     {
         public static ObservableCollection<SpellCardRecordData>? SpellCardRecordDataLists { get; set; }
 
-        public static void GetSpellCardRecord(string gameId, bool diplayNotChallengedCardName)
+        public static void GetSpellCardRecord(string gameId, bool displayNotChallengedCardName)
         {
+            SpellCardRecordDataLists = new();
+
             if (gameId == GameIndex.Th06)
             {
-                Th06.Th06SpellCardRecord.GetSpellCardRecord(diplayNotChallengedCardName);
+                Th06.Th06SpellCardRecord.GetSpellCardRecord(displayNotChallengedCardName);
+            }
+            else if (gameId == GameIndex.Th07)
+            {
+                Th07.Th07SpellCardRecord.GetSpellCardRecord(displayNotChallengedCardName);
             }
         }
     }

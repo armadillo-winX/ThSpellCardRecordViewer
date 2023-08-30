@@ -2,7 +2,7 @@
 {
     internal class SpellCardRecordData
     {
-        public string? CardID { get; set; }
+        public string? CardId { get; set; }
 
         public string? CardName { get; set; }
 
