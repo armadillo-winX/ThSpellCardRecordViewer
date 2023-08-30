@@ -9,6 +9,10 @@
     <Grid>
         <Menu x:Name="MainMenu" Height="18" VerticalAlignment="Top">
             <MenuItem Header="ファイル(_F)">
+                <MenuItem x:Name="OpenScoreFileMenuItem"
+                          Header="スコアファイルを開く(_O)" 
+                          Click="OpenScoreFileButtonClick"/>
+                <Separator/>
                 <MenuItem x:Name="ExitMenuItem" Header="アプリケーションを終了(_X)" Click="ExitMenuItemClick"/>
             </MenuItem>
             <MenuItem Header="オプション(_O)">
@@ -28,8 +32,8 @@
                  Margin="213,23,57,0"
                  IsReadOnly="True"
                    TextWrapping="NoWrap" Text="" VerticalAlignment="Top" Height="20"/>
-        <Button x:Name="BrowseScoreFileButton"
-                Content="参照(_B)" HorizontalAlignment="Right" Margin="0,23,10,0" VerticalAlignment="Top" Click="BrowseScoreFileButtonClick"/>
+        <Button x:Name="OpenScoreFileButton"
+                Content="参照(_B)" HorizontalAlignment="Right" Margin="0,23,10,0" VerticalAlignment="Top" Click="OpenScoreFileButtonClick"/>
         <DataGrid x:Name="SpellCardRecordDataGrid"
                   Margin="0,52,0,0"
                   AutoGenerateColumns="False"

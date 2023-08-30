@@ -42,7 +42,7 @@ namespace ThSpellCardRecordViewer
 
                 try
                 {
-                    BrowseScoreFileButton.IsEnabled = false;
+                    OpenScoreFileButton.IsEnabled = false;
                     GameComboBox.IsEnabled = false;
                     await Task.Run(()
                         => SpellCardRecord.GetSpellCardRecord(gameId, displayNotChallengedCardName)
@@ -51,7 +51,7 @@ namespace ThSpellCardRecordViewer
                     {
                         SpellCardRecordDataGrid.DataContext = SpellCardRecord.SpellCardRecordDataLists;
                     }
-                    BrowseScoreFileButton.IsEnabled = true;
+                    OpenScoreFileButton.IsEnabled = true;
                     GameComboBox.IsEnabled = true;
                 }
                 catch (Exception ex)
@@ -73,7 +73,7 @@ namespace ThSpellCardRecordViewer
             this.Close();
         }
 
-        private void BrowseScoreFileButtonClick(object sender, RoutedEventArgs e)
+        private void OpenScoreFileButtonClick(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new()
             { 
