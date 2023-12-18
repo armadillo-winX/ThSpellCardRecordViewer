@@ -92,15 +92,19 @@ namespace ThSpellCardRecordViewer
             if (openFileDialog.ShowDialog() == true)
             {
                 ScoreFilePathBox.Text = openFileDialog.FileName;
-                if (GetSeletedGameId() == GameIndex.Th06)
-                {
-                    ScoreFilePath.Th06ScoreFile = openFileDialog.FileName;
-                }
-                else if (GetSeletedGameId() == GameIndex.Th07)
-                {
-                    ScoreFilePath.Th07ScoreFile = openFileDialog.FileName;
-                }
 
+                ScoreFilePath.SetScoreFilePath(GetSeletedGameId(), openFileDialog.FileName);
+
+                ViewSpellCardRecord();
+            }
+        }
+
+        private void GameComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string gameId = GetSeletedGameId();
+            if (gameId != null) 
+            {
+                ScoreFilePathBox.Text = ScoreFilePath.GetScoreFilePath(gameId);
                 ViewSpellCardRecord();
             }
         }

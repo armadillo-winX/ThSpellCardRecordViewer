@@ -1,4 +1,6 @@
-﻿namespace ThSpellCardRecordViewer.Score
+﻿using System.Reflection;
+
+namespace ThSpellCardRecordViewer.Score
 {
     internal class ScoreFilePath
     {
@@ -27,5 +29,24 @@
         public static string? Th17ScoreFile { get; set; }
 
         public static string? Th18ScoreFile { get; set; }
+
+        public static void SetScoreFilePath(string gameId, string scoreFilePath)
+        {
+            //プロパティ名からプロパティを取得
+            PropertyInfo? scoreFilePathProperty = typeof(ScoreFilePath).GetProperty($"{gameId}ScoreFile");
+            //取得したプロパティに値を代入
+            scoreFilePathProperty.SetValue(null, scoreFilePath);
+        }
+
+        public static string? GetScoreFilePath(string gameId)
+        {
+            PropertyInfo? scoreFilePathProperty = typeof(ScoreFilePath).GetProperty($"{gameId}ScoreFile");
+            string? scoreFile 
+                = scoreFilePathProperty.GetValue(null, null) != null ? 
+                scoreFilePathProperty.GetValue(null, null).ToString() : 
+                string.Empty;
+
+            return scoreFile;
+        }
     }
 }
