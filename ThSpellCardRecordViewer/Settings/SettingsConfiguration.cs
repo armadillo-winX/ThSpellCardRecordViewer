@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace ThSpellCardRecordViewer.Settings
 {
@@ -13,7 +8,7 @@ namespace ThSpellCardRecordViewer.Settings
 
         public static void SaveScoreFilePathSettings()
         {
-            string? scoreFilePathSettingsFile = PathInfo.ScoreFilePathSettings;
+            string? scoreFilePathSettingsFile = PathInfo.ScoreFilePathSettingsFile;
 
             _scoreFilePathSettings.Th06 = ScoreFilePath.Th06ScoreFile;
             _scoreFilePathSettings.Th07 = ScoreFilePath.Th07ScoreFile;
@@ -42,7 +37,7 @@ namespace ThSpellCardRecordViewer.Settings
 
         public static void ConfigureScoreFilePathSettings()
         {
-            string? scoreFilePathSettingsFile = PathInfo.ScoreFilePathSettings;
+            string? scoreFilePathSettingsFile = PathInfo.ScoreFilePathSettingsFile;
             if (!string.IsNullOrEmpty(scoreFilePathSettingsFile) && File.Exists(scoreFilePathSettingsFile))
             {
                 XmlSerializer scoreFilePathSettingsSerializer = new(typeof(ScoreFilePathSettings));
@@ -83,5 +78,38 @@ namespace ThSpellCardRecordViewer.Settings
             }
         }
 
+        public static void SaveMainWindowSettings(MainWindowSettings applicationSettings)
+        {
+            string? applicationSettingsFile = PathInfo.MainWindowSettingsFile;
+
+            XmlSerializer applicationSettingsSerializer = new(typeof(MainWindowSettings));
+            FileStream fileStream = new(applicationSettingsFile, FileMode.Create);
+            applicationSettingsSerializer.Serialize(fileStream, applicationSettings);
+            fileStream.Close();
+        }
+
+        public static MainWindowSettings ConfigureMainWindowSettings()
+        {
+            string? applicationSettingsFile = PathInfo.MainWindowSettingsFile;
+
+            MainWindowSettings mainWindowSettings = new();
+
+            if (File.Exists(applicationSettingsFile))
+            {
+                XmlSerializer mainWindowSettingsSerializer = new(typeof(MainWindowSettings));
+                FileStream fileStream = new(applicationSettingsFile, FileMode.Open);
+
+                mainWindowSettings = (MainWindowSettings)mainWindowSettingsSerializer.Deserialize(fileStream);
+                fileStream.Close();
+            }
+            else
+            {
+                mainWindowSettings.MainWindowWidth = 650;
+                mainWindowSettings.MainWindowHeight = 400;
+                mainWindowSettings.SelectedGameId = GameIndex.Th06;
+            }
+
+            return mainWindowSettings;
+        }
     }
 }

@@ -29,6 +29,26 @@ namespace ThSpellCardRecordViewer
     public partial class MainWindow : Window
     {
         private string? _appName = VersionInfo.AppName;
+
+        private readonly Dictionary<string, int> GameDictionary =
+            new()
+            {
+                { "Th06", 0 },
+                { "Th07", 1 },
+                { "Th08", 2 },
+                { "Th09", 3 },
+                { "Th10", 4 },
+                { "Th11", 5 },
+                { "Th12", 6 },
+                { "Th13", 7 },
+                { "Th14", 8 },
+                { "Th15", 9 },
+                { "Th16", 10 },
+                { "Th17", 11 },
+                { "Th18", 12 }
+            };
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -42,6 +62,16 @@ namespace ThSpellCardRecordViewer
             catch (Exception ex)
             {
                 MessageBox.Show($"スコアファイルパス設定の構成に失敗\n{ex.Message}", "エラー",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            try
+            {
+                ConfigureMainWindowSettings();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"メインウィンドウ設定の構成に失敗\n{ex.Message}", "エラー",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -88,6 +118,35 @@ namespace ThSpellCardRecordViewer
             return gameItem.Uid;
         }
 
+        private void ConfigureMainWindowSettings()
+        {
+            MainWindowSettings mainWindowSettings = SettingsConfiguration.ConfigureMainWindowSettings();
+            this.Width = mainWindowSettings.MainWindowWidth;
+            this.Height = mainWindowSettings.MainWindowHeight;
+
+            string? selectedGameId = mainWindowSettings.SelectedGameId;
+            if (!string.IsNullOrEmpty(selectedGameId))
+            {
+                GameComboBox.SelectedIndex = GameDictionary[selectedGameId];
+            }
+            else
+            {
+                GameComboBox.SelectedIndex = 0;
+            }
+        }
+
+        private void SaveMainWindowSettings()
+        {
+            MainWindowSettings mainWindowSettings = new()
+            {
+                MainWindowWidth = this.Width,
+                MainWindowHeight = this.Height,
+                SelectedGameId = GetSeletedGameId()
+            };
+
+            SettingsConfiguration.SaveMainWindowSettings(mainWindowSettings);
+        }
+
         private void ExitMenuItemClick(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -126,6 +185,7 @@ namespace ThSpellCardRecordViewer
             try
             {
                 SettingsConfiguration.SaveScoreFilePathSettings();
+                SaveMainWindowSettings();
             }
             catch (Exception ex)
             {
