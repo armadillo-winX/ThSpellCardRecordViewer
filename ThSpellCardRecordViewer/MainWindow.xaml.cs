@@ -29,6 +29,25 @@ namespace ThSpellCardRecordViewer
     public partial class MainWindow : Window
     {
         private string? _appName = VersionInfo.AppName;
+        private string? _gameId;
+
+        public string GameId 
+        {
+            get
+            {
+                return _gameId;
+            }
+
+            set
+            {
+                _gameId = value;
+                if (!string.IsNullOrEmpty(value))
+                {
+                    ScoreFilePathBox.Text = ScoreFilePath.GetScoreFilePath(value);
+                    ViewSpellCardRecord();
+                }
+            }
+        }
 
         private readonly Dictionary<string, int> GameDictionary =
             new()
@@ -54,6 +73,8 @@ namespace ThSpellCardRecordViewer
             InitializeComponent();
 
             this.Title = _appName;
+
+            this.GameId = string.Empty;
 
             try
             {
@@ -81,7 +102,7 @@ namespace ThSpellCardRecordViewer
             bool displayNotChallengedCardName = DisplayNotChallengedCardMenuItem.IsChecked;
             if (GameComboBox.SelectedIndex > -1)
             {
-                string gameId = GetSeletedGameId();
+                string gameId = this.GameId;
 
                 try
                 {
@@ -112,12 +133,6 @@ namespace ThSpellCardRecordViewer
             OpenScoreFileButton.IsEnabled = !enabled;
         }
 
-        private string GetSeletedGameId()
-        {
-            ComboBoxItem gameItem = (ComboBoxItem)GameComboBox.SelectedItem;
-            return gameItem.Uid;
-        }
-
         private void ConfigureMainWindowSettings()
         {
             MainWindowSettings mainWindowSettings = SettingsConfiguration.ConfigureMainWindowSettings();
@@ -141,7 +156,7 @@ namespace ThSpellCardRecordViewer
             {
                 MainWindowWidth = this.Width,
                 MainWindowHeight = this.Height,
-                SelectedGameId = GetSeletedGameId()
+                SelectedGameId = this.GameId
             };
 
             SettingsConfiguration.SaveMainWindowSettings(mainWindowSettings);
@@ -164,7 +179,7 @@ namespace ThSpellCardRecordViewer
             {
                 ScoreFilePathBox.Text = openFileDialog.FileName;
 
-                ScoreFilePath.SetScoreFilePath(GetSeletedGameId(), openFileDialog.FileName);
+                ScoreFilePath.SetScoreFilePath(this.GameId, openFileDialog.FileName);
 
                 ViewSpellCardRecord();
             }
@@ -172,11 +187,15 @@ namespace ThSpellCardRecordViewer
 
         private void GameComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string gameId = GetSeletedGameId();
+            ComboBoxItem gameItem = (ComboBoxItem)GameComboBox.SelectedItem;
+            string gameId = gameItem.Uid;
             if (gameId != null) 
             {
-                ScoreFilePathBox.Text = ScoreFilePath.GetScoreFilePath(gameId);
-                ViewSpellCardRecord();
+                this.GameId = gameId;
+            }
+            else
+            {
+                this.GameId = string.Empty;
             }
         }
 
