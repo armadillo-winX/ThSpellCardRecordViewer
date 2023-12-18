@@ -41,10 +41,18 @@ namespace ThSpellCardRecordViewer.Score
         public static string? GetScoreFilePath(string gameId)
         {
             PropertyInfo? scoreFilePathProperty = typeof(ScoreFilePath).GetProperty($"{gameId}ScoreFile");
-            string? scoreFile 
-                = scoreFilePathProperty.GetValue(null, null) != null ? 
-                scoreFilePathProperty.GetValue(null, null).ToString() : 
+            string? scoreFile;
+            if (scoreFilePathProperty != null)
+            {
+                scoreFile
+                = scoreFilePathProperty.GetValue(null, null) != null ?
+                scoreFilePathProperty.GetValue(null, null).ToString() :
                 string.Empty;
+            }
+            else
+            {
+                scoreFile = string.Empty;
+            }
 
             return scoreFile;
         }
