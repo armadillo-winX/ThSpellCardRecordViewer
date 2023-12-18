@@ -6,6 +6,8 @@
 
         public static string? AppLocation => Path.GetDirectoryName(AppPath);
 
+        public static string ScoreFilePathSettings => $"{AppLocation}\\ScoreFilePath.xml";
+
         public static string SpellCardDataDirectory => $"{AppLocation}\\SpellCardData";
     }
 }

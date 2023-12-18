@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ThSpellCardRecordViewer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="650">
+        Title="MainWindow" Height="400" Width="650" Closing="MainWindowClosing">
     <Grid>
         <Menu x:Name="MainMenu" Height="18" VerticalAlignment="Top">
             <MenuItem Header="ファイル(_F)">

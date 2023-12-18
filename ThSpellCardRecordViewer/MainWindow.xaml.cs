@@ -4,9 +4,11 @@ global using System.Windows;
 
 global using ThSpellCardRecordViewer.Extensions;
 global using ThSpellCardRecordViewer.Score;
+global using ThSpellCardRecordViewer.Settings;
 
 using Microsoft.Win32;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Printing;
 using System.Text;
@@ -32,6 +34,16 @@ namespace ThSpellCardRecordViewer
             InitializeComponent();
 
             this.Title = _appName;
+
+            try
+            {
+                SettingsConfiguration.ConfigureScoreFilePathSettings();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"スコアファイルパス設定の構成に失敗\n{ex.Message}", "エラー",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private async void ViewSpellCardRecord()
@@ -106,6 +118,18 @@ namespace ThSpellCardRecordViewer
             {
                 ScoreFilePathBox.Text = ScoreFilePath.GetScoreFilePath(gameId);
                 ViewSpellCardRecord();
+            }
+        }
+
+        private void MainWindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            try
+            {
+                SettingsConfiguration.SaveScoreFilePathSettings();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
             }
         }
     }
