@@ -139,6 +139,8 @@ namespace ThSpellCardRecordViewer
             this.Width = mainWindowSettings.MainWindowWidth;
             this.Height = mainWindowSettings.MainWindowHeight;
 
+            DisplayNotChallengedCardMenuItem.IsChecked = mainWindowSettings.DisplayUnchallengedCardName;
+
             string? selectedGameId = mainWindowSettings.SelectedGameId;
             if (!string.IsNullOrEmpty(selectedGameId))
             {
@@ -156,7 +158,8 @@ namespace ThSpellCardRecordViewer
             {
                 MainWindowWidth = this.Width,
                 MainWindowHeight = this.Height,
-                SelectedGameId = this.GameId
+                SelectedGameId = this.GameId,
+                DisplayUnchallengedCardName = DisplayNotChallengedCardMenuItem.IsChecked
             };
 
             SettingsConfiguration.SaveMainWindowSettings(mainWindowSettings);

@@ -7,5 +7,7 @@
         public double MainWindowHeight { get; set; }
 
         public string? SelectedGameId { get; set; }
+
+        public bool DisplayUnchallengedCardName { get; set; }
     }
 }

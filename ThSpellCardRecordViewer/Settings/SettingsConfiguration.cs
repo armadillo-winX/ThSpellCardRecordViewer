@@ -107,6 +107,7 @@ namespace ThSpellCardRecordViewer.Settings
                 mainWindowSettings.MainWindowWidth = 650;
                 mainWindowSettings.MainWindowHeight = 400;
                 mainWindowSettings.SelectedGameId = GameIndex.Th06;
+                mainWindowSettings.DisplayUnchallengedCardName = false;
             }
 
             return mainWindowSettings;
