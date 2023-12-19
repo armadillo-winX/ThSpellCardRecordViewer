@@ -75,7 +75,7 @@ namespace ThSpellCardRecordViewer.Score.Th06
 
             SpellCardInfo spellcardData = SpellCardInfo.GetSpellCardInfo(GameIndex.Th06, cardId);
             string? cardName
-                = displayUnchallengedCard ? spellcardData.CardName : challenge != 0 ? spellcardData.CardName : "Unchallenge Card";
+                = displayUnchallengedCard ? spellcardData.CardName : challenge != 0 ? spellcardData.CardName : "----------------";
 
             string rate = Calculator.CalcSpellCardGetRate(get, challenge);
 

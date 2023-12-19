@@ -87,7 +87,7 @@ namespace ThSpellCardRecordViewer.Score.Th07
 
             SpellCardInfo spellcardData = SpellCardInfo.GetSpellCardInfo(GameIndex.Th07, cardId);
             string? cardName
-                = displayUnchallengedCard ? spellcardData.CardName : allChangeCount != 0 ? spellcardData.CardName : "Unchallenge Card";
+                = displayUnchallengedCard ? spellcardData.CardName : allChangeCount != 0 ? spellcardData.CardName : "----------------";
 
             string rate = Calculator.CalcSpellCardGetRate(allGetCount, allChangeCount);
 
