@@ -219,5 +219,14 @@ namespace ThSpellCardRecordViewer
         {
             ViewSpellCardRecord();
         }
+
+        private void AboutMenuItemClick(object sender, RoutedEventArgs e)
+        {
+            AboutDialog aboutDialog = new()
+            {
+                Owner = this
+            };
+            aboutDialog.ShowDialog();
+        }
     }
 }

@@ -19,7 +19,9 @@
                 <MenuItem x:Name="DisplayNotChallengedCardMenuItem" 
                           Header="未挑戦のスペルカード名を表示する" IsCheckable="True" Click="DisplayNotChallengedCardMenuItemClick"/>
             </MenuItem>
-            <MenuItem Header="ヘルプ(_H)"></MenuItem>
+            <MenuItem Header="ヘルプ(_H)">
+                <MenuItem x:Name="AboutMenuItem" Header="バージョン情報(_A)" Click="AboutMenuItemClick"/>
+            </MenuItem>
         </Menu>
         <ComboBox x:Name="GameComboBox"
                   HorizontalAlignment="Left"
