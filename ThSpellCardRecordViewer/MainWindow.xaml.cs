@@ -214,5 +214,10 @@ namespace ThSpellCardRecordViewer
                 Debug.WriteLine(ex.Message);
             }
         }
+
+        private void DisplayNotChallengedCardMenuItemClick(object sender, RoutedEventArgs e)
+        {
+            ViewSpellCardRecord();
+        }
     }
 }

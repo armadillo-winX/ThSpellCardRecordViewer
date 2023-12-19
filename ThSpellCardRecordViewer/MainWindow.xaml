@@ -17,7 +17,7 @@
             </MenuItem>
             <MenuItem Header="オプション(_O)">
                 <MenuItem x:Name="DisplayNotChallengedCardMenuItem" 
-                          Header="未挑戦のスペルカード名を表示する" IsCheckable="True"/>
+                          Header="未挑戦のスペルカード名を表示する" IsCheckable="True" Click="DisplayNotChallengedCardMenuItemClick"/>
             </MenuItem>
             <MenuItem Header="ヘルプ(_H)"></MenuItem>
         </Menu>
