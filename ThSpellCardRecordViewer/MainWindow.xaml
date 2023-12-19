@@ -54,7 +54,7 @@
         <Button x:Name="OpenScoreFileButton"
                 Content="スコアファイルを開く(_O)" HorizontalAlignment="Right" Margin="0,23,10,0" VerticalAlignment="Top" Click="OpenScoreFileButtonClick"/>
         <DataGrid x:Name="SpellCardRecordDataGrid"
-                  Margin="10,79,10,24"
+                  Margin="10,79,10,10"
                   AutoGenerateColumns="False"
                   ItemsSource="{Binding}">
             <DataGrid.Columns>
