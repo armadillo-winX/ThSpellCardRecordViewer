@@ -9,5 +9,7 @@
         public string? SelectedGameId { get; set; }
 
         public bool DisplayUnchallengedCardName { get; set; }
+
+        public int ThemeIndex { get; set; }
     }
 }

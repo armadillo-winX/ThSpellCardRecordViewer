@@ -91,6 +91,14 @@ namespace ThSpellCardRecordViewer
                 { "Th18", 12 }
             };
 
+        private readonly Dictionary<int, string> ThemeDictionary =
+            new()
+            {
+                { 0, "Light" },
+                { 1, "Dark"  },
+                { 2, "Black" },
+                { 3, "NormalColor" }
+            };
 
         public MainWindow()
         {
@@ -100,6 +108,8 @@ namespace ThSpellCardRecordViewer
 
             this.GameId = string.Empty;
             this.EnemyFilter = "ALL";
+
+            ApplicationTheme.ThemeName = "Light";
 
             try
             {
@@ -172,6 +182,7 @@ namespace ThSpellCardRecordViewer
             this.Height = mainWindowSettings.MainWindowHeight;
 
             DisplayNotChallengedCardMenuItem.IsChecked = mainWindowSettings.DisplayUnchallengedCardName;
+            ThemeSettingsComboBox.SelectedIndex = mainWindowSettings.ThemeIndex;
 
             string? selectedGameId = mainWindowSettings.SelectedGameId;
             if (!string.IsNullOrEmpty(selectedGameId))
@@ -191,7 +202,8 @@ namespace ThSpellCardRecordViewer
                 MainWindowWidth = this.Width,
                 MainWindowHeight = this.Height,
                 SelectedGameId = this.GameId,
-                DisplayUnchallengedCardName = DisplayNotChallengedCardMenuItem.IsChecked
+                DisplayUnchallengedCardName = DisplayNotChallengedCardMenuItem.IsChecked,
+                ThemeIndex = ThemeSettingsComboBox.SelectedIndex
             };
 
             SettingsConfiguration.SaveMainWindowSettings(mainWindowSettings);
@@ -360,6 +372,19 @@ namespace ThSpellCardRecordViewer
         private void ReloadMenuItemClick(object sender, RoutedEventArgs e)
         {
             ViewSpellCardRecord();
+        }
+
+        private void ThemeSettingsComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ThemeSettingsComboBox.SelectedIndex > -1)
+            {
+                string themeName = ThemeDictionary[ThemeSettingsComboBox.SelectedIndex];
+                ApplicationTheme.ThemeName = themeName;
+            }
+            else
+            {
+                ApplicationTheme.ThemeName = "Light";
+            }
         }
     }
 }

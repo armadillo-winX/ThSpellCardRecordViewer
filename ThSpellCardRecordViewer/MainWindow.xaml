@@ -19,7 +19,19 @@
             </MenuItem>
             <MenuItem Header="オプション(_O)">
                 <MenuItem x:Name="DisplayNotChallengedCardMenuItem" 
-                          Header="未挑戦のスペルカード名を表示する" IsCheckable="True" Click="DisplayNotChallengedCardMenuItemClick"/>
+                          Header="未挑戦のスペルカード名を表示する" IsCheckable="True" 
+                          Click="DisplayNotChallengedCardMenuItemClick"/>
+                <Separator/>
+                <MenuItem Header="アプリケーションのテーマ">
+                    <ComboBox x:Name="ThemeSettingsComboBox" Width="90"
+                              HorizontalAlignment="Left" VerticalAlignment="Top" 
+                              SelectionChanged="ThemeSettingsComboBoxSelectionChanged">
+                        <ComboBoxItem Uid="Light" Content="ライト"/>
+                        <ComboBoxItem Uid="Dark" Content="ダーク"/>
+                        <ComboBoxItem Uid="Black" Content="ブラック"/>
+                        <ComboBoxItem Uid="NormalColor" Content="WPF標準"/>
+                    </ComboBox>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="ヘルプ(_H)">
                 <MenuItem x:Name="AboutMenuItem" Header="バージョン情報(_A)" Click="AboutMenuItemClick"/>
