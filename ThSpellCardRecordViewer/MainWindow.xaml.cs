@@ -356,5 +356,10 @@ namespace ThSpellCardRecordViewer
                 EnemyFilterContextMenu.IsOpen = false;
             }
         }
+
+        private void ReloadMenuItemClick(object sender, RoutedEventArgs e)
+        {
+            ViewSpellCardRecord();
+        }
     }
 }

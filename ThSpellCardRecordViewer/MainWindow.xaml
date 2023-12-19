@@ -12,6 +12,8 @@
                 <MenuItem x:Name="OpenScoreFileMenuItem"
                           Header="スコアファイルを開く(_O)" 
                           Click="OpenScoreFileButtonClick"/>
+                <MenuItem x:Name="ReloadMenuItem"
+                          Header="御札戦歴データを再読み込み(_R)" Click="ReloadMenuItemClick"/>
                 <Separator/>
                 <MenuItem x:Name="ExitMenuItem" Header="アプリケーションを終了(_X)" Click="ExitMenuItemClick"/>
             </MenuItem>
