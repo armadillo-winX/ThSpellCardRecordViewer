@@ -37,7 +37,7 @@
         <Button x:Name="OpenScoreFileButton"
                 Content="スコアファイルを開く(_O)" HorizontalAlignment="Right" Margin="0,23,10,0" VerticalAlignment="Top" Click="OpenScoreFileButtonClick"/>
         <DataGrid x:Name="SpellCardRecordDataGrid"
-                  Margin="0,52,0,0"
+                  Margin="10,79,10,24"
                   AutoGenerateColumns="False"
                   ItemsSource="{Binding}">
             <DataGrid.Columns>
@@ -57,6 +57,16 @@
                                             Binding="{Binding Enemy}"/>
             </DataGrid.Columns>
         </DataGrid>
+        <Button x:Name="EnemyFilterButton"
+                Content="敵機フィルター" 
+                Width="120" Height="24" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"
+                ContextMenuService.Placement="Bottom" Click="EnemyFilterButtonClick">
+            <Button.ContextMenu>
+                <ContextMenu x:Name="EnemyFilterContextMenu" Placement="Bottom"/>
+            </Button.ContextMenu>
+        </Button>
+        <TextBlock x:Name="FilteredEnemyBlock"
+                   HorizontalAlignment="Left" Margin="135,54,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

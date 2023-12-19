@@ -8,6 +8,7 @@ global using ThSpellCardRecordViewer.Settings;
 
 using Microsoft.Win32;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Printing;
@@ -43,6 +44,7 @@ namespace ThSpellCardRecordViewer
                 _gameId = value;
                 if (!string.IsNullOrEmpty(value))
                 {
+                    SetEnemyFilter();
                     ScoreFilePathBox.Text = ScoreFilePath.GetScoreFilePath(value);
                     ViewSpellCardRecord();
                 }
@@ -165,6 +167,75 @@ namespace ThSpellCardRecordViewer
             SettingsConfiguration.SaveMainWindowSettings(mainWindowSettings);
         }
 
+        private void SetEnemyFilter()
+        {
+            EnemyFilterContextMenu.Items.Clear();
+
+            MenuItem allItem = new()
+            {
+                Header = "ALL"
+            };
+            allItem.Click += new RoutedEventHandler(EnemyFilterMenuItemClick);
+            EnemyFilterContextMenu.Items.Add(allItem);
+
+            Separator separator = new();
+            EnemyFilterContextMenu.Items.Add(separator);
+
+            string gameId = this.GameId;
+            string[] gameEnemies = GameEnemies.GetGameEnemies(gameId);
+            if (gameEnemies != null)
+            {
+                foreach (string gameEnemy in gameEnemies)
+                {
+                    MenuItem item = new()
+                    {
+                        Header = gameEnemy
+                    };
+                    item.Click += new RoutedEventHandler(EnemyFilterMenuItemClick);
+                    EnemyFilterContextMenu.Items.Add(item);
+                }
+            }
+        }
+
+        private void EnemyFilterMenuItemClick(object sender, RoutedEventArgs e)
+        {
+            string enemyName = ((MenuItem)sender).Header.ToString();
+            if (enemyName == "ALL")
+            {
+                FilteredEnemyBlock.Text = string.Empty;
+                SpellCardRecordDataGrid.DataContext = SpellCardRecord.SpellCardRecordDataLists;
+            }
+            else
+            {
+                FilteredEnemyBlock.Text = enemyName;
+
+                ObservableCollection<SpellCardRecordData> spellCardRecordDataLists
+                    = SpellCardRecord.SpellCardRecordDataLists;
+                if (spellCardRecordDataLists != null && spellCardRecordDataLists.Count > 0)
+                {
+                    ObservableCollection<SpellCardRecordData> filteredSpellCardRecordDataLists = new();
+                    foreach (SpellCardRecordData spellCardRecordData in spellCardRecordDataLists)
+                    {
+                        if (spellCardRecordData.Enemy == enemyName)
+                        {
+                            filteredSpellCardRecordDataLists.Add(spellCardRecordData);
+                        }
+                    }
+
+                    if (filteredSpellCardRecordDataLists != null && filteredSpellCardRecordDataLists.Count > 0)
+                    {
+                        SpellCardRecordDataGrid.DataContext = filteredSpellCardRecordDataLists;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(this, "御札戦歴データが空です。", _appName,
+                        MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    FilteredEnemyBlock.Text = string.Empty;
+                }
+            }
+        }
+
         private void ExitMenuItemClick(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -227,6 +298,20 @@ namespace ThSpellCardRecordViewer
                 Owner = this
             };
             aboutDialog.ShowDialog();
+        }
+
+        private void EnemyFilterButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (!EnemyFilterContextMenu.IsOpen)
+            {
+                EnemyFilterContextMenu.PlacementTarget = EnemyFilterButton;
+                EnemyFilterContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+                EnemyFilterContextMenu.IsOpen = true;
+            }
+            else
+            {
+                EnemyFilterContextMenu.IsOpen = false;
+            }
         }
     }
 }
