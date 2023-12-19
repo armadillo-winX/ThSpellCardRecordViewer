@@ -31,6 +31,7 @@ namespace ThSpellCardRecordViewer
     {
         private string? _appName = VersionInfo.AppName;
         private string? _gameId;
+        private string? _enemyFilter;
 
         public string GameId 
         {
@@ -47,6 +48,27 @@ namespace ThSpellCardRecordViewer
                     SetEnemyFilter();
                     ScoreFilePathBox.Text = ScoreFilePath.GetScoreFilePath(value);
                     ViewSpellCardRecord();
+                }
+            }
+        }
+
+        public string EnemyFilter
+        {
+            get
+            {
+                return _enemyFilter;
+            }
+
+            set
+            {
+                _enemyFilter = value;
+                if (value != "ALL")
+                {
+                    FilteredEnemyBlock.Text = value;
+                }
+                else
+                {
+                    FilteredEnemyBlock.Text = string.Empty;
                 }
             }
         }
@@ -77,6 +99,7 @@ namespace ThSpellCardRecordViewer
             this.Title = _appName;
 
             this.GameId = string.Empty;
+            this.EnemyFilter = "ALL";
 
             try
             {
@@ -114,7 +137,14 @@ namespace ThSpellCardRecordViewer
                     );
                     if (SpellCardRecord.SpellCardRecordDataLists.Count >= 0)
                     {
-                        SpellCardRecordDataGrid.DataContext = SpellCardRecord.SpellCardRecordDataLists;
+                        if (this.EnemyFilter == "ALL")
+                        {
+                            SpellCardRecordDataGrid.DataContext = SpellCardRecord.SpellCardRecordDataLists;
+                        }
+                        else
+                        {
+                            FilterSpellCardRecordByEnemy();
+                        }
                     }
 
 
@@ -200,39 +230,50 @@ namespace ThSpellCardRecordViewer
         private void EnemyFilterMenuItemClick(object sender, RoutedEventArgs e)
         {
             string enemyName = ((MenuItem)sender).Header.ToString();
+            if (enemyName != null)
+            {
+                this.EnemyFilter = enemyName;
+            }
+            else
+            {
+                this.EnemyFilter = "ALL";
+            }
+
             if (enemyName == "ALL")
             {
-                FilteredEnemyBlock.Text = string.Empty;
                 SpellCardRecordDataGrid.DataContext = SpellCardRecord.SpellCardRecordDataLists;
             }
             else
             {
-                FilteredEnemyBlock.Text = enemyName;
+                FilterSpellCardRecordByEnemy();
+            }
+        }
 
-                ObservableCollection<SpellCardRecordData> spellCardRecordDataLists
+        private void FilterSpellCardRecordByEnemy()
+        {
+            ObservableCollection<SpellCardRecordData> spellCardRecordDataLists
                     = SpellCardRecord.SpellCardRecordDataLists;
-                if (spellCardRecordDataLists != null && spellCardRecordDataLists.Count > 0)
+            if (spellCardRecordDataLists != null && spellCardRecordDataLists.Count > 0)
+            {
+                ObservableCollection<SpellCardRecordData> filteredSpellCardRecordDataLists = new();
+                foreach (SpellCardRecordData spellCardRecordData in spellCardRecordDataLists)
                 {
-                    ObservableCollection<SpellCardRecordData> filteredSpellCardRecordDataLists = new();
-                    foreach (SpellCardRecordData spellCardRecordData in spellCardRecordDataLists)
+                    if (spellCardRecordData.Enemy == this.EnemyFilter)
                     {
-                        if (spellCardRecordData.Enemy == enemyName)
-                        {
-                            filteredSpellCardRecordDataLists.Add(spellCardRecordData);
-                        }
+                        filteredSpellCardRecordDataLists.Add(spellCardRecordData);
                     }
+                }
 
-                    if (filteredSpellCardRecordDataLists != null && filteredSpellCardRecordDataLists.Count > 0)
-                    {
-                        SpellCardRecordDataGrid.DataContext = filteredSpellCardRecordDataLists;
-                    }
-                }
-                else
+                if (filteredSpellCardRecordDataLists != null && filteredSpellCardRecordDataLists.Count > 0)
                 {
-                    MessageBox.Show(this, "御札戦歴データが空です。", _appName,
-                        MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                    FilteredEnemyBlock.Text = string.Empty;
+                    SpellCardRecordDataGrid.DataContext = filteredSpellCardRecordDataLists;
                 }
+            }
+            else
+            {
+                MessageBox.Show(this, "御札戦歴データが空です。", _appName,
+                    MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                this.EnemyFilter = "ALL";
             }
         }
 
@@ -271,6 +312,8 @@ namespace ThSpellCardRecordViewer
             {
                 this.GameId = string.Empty;
             }
+
+            this.EnemyFilter = "ALL";
         }
 
         private void MainWindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
