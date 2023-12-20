@@ -439,5 +439,24 @@ namespace ThSpellCardRecordViewer
                     MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
+
+        private void CopySpellCardRecordMenuItemClick(object sender, RoutedEventArgs e)
+        {
+            if (SpellCardRecordDataGrid.SelectedIndex > -1)
+            {
+                SpellCardRecordData spellCardRecordData = (SpellCardRecordData)SpellCardRecordDataGrid.SelectedItem;
+
+                string info =
+                    $"ID:{spellCardRecordData.CardId}\r\n" +
+                    $"{spellCardRecordData.CardName}\r\n" +
+                    $"取得数:{spellCardRecordData.Get}\r\n" +
+                    $"挑戦数:{spellCardRecordData.Challenge}\r\n" +
+                    $"取得率:{spellCardRecordData.GetRate}\r\n" +
+                    $"発動場所:{spellCardRecordData.Place}\r\n" +
+                    $"敵機:{spellCardRecordData.Enemy}\r\n";
+
+                Clipboard.SetText(info);
+            }
+        }
     }
 }
