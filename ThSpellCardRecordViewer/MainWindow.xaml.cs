@@ -167,6 +167,7 @@ namespace ThSpellCardRecordViewer
             OpenScoreFileMenuItem.IsEnabled = !enabled;
             OpenScoreFileButton.IsEnabled = !enabled;
             ReloadMenuItem.IsEnabled = !enabled;
+            SpellCardRecordDataStaticsMenuItem.IsEnabled = !enabled;
         }
 
         private void ConfigureMainWindowSettings()
@@ -418,6 +419,24 @@ namespace ThSpellCardRecordViewer
                     _spellCardRecordDetailDialog.DataContext = spellCardRecordData;
                     _spellCardRecordDetailDialog.WindowState = WindowState.Normal;
                 }
+            }
+        }
+
+        private void SpellCardRecordDataStaticsMenuItemClick(object sender, RoutedEventArgs e)
+        {
+            if (SpellCardRecord.SpellCardRecordDataLists != null &&
+                SpellCardRecord.SpellCardRecordDataLists.Count > 0)
+            {
+                SpellCardRecordDataStaticsDialog spellCardRecordDataStaticsDialog = new()
+                {
+                    Owner = this
+                };
+                spellCardRecordDataStaticsDialog.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show(this, "御札戦歴データが空です。", _appName,
+                    MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
     }
