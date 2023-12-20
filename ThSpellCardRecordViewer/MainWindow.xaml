@@ -79,6 +79,7 @@
             <DataGrid.ContextMenu>
                 <ContextMenu x:Name="SpellCardRecordDataGridContextMenu">
                     <MenuItem x:Name="CopySpellCardRecordMenuItem" Header="御札戦歴をコピー(_C)" Click="CopySpellCardRecordMenuItemClick"/>
+                    <MenuItem x:Name="CopySpellCardNameMenuItem" Header="スペルカード名をコピー" Click="CopySpellCardNameMenuItemClick"/>
                     <MenuItem x:Name="ViewSpellCardRecordDetailMenuItem" Header="詳細を表示(_D)" Click="ViewSpellCardRecordDetailMenuItemClick"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>

@@ -458,5 +458,15 @@ namespace ThSpellCardRecordViewer
                 Clipboard.SetText(info);
             }
         }
+
+        private void CopySpellCardNameMenuItemClick(object sender, RoutedEventArgs e)
+        {
+            if (SpellCardRecordDataGrid.SelectedIndex > -1)
+            {
+                SpellCardRecordData spellCardRecordData = (SpellCardRecordData)SpellCardRecordDataGrid.SelectedItem;
+
+                Clipboard.SetText(spellCardRecordData.CardName);
+            }
+        }
     }
 }
