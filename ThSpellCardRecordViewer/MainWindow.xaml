@@ -70,7 +70,7 @@
                                             Binding="{Binding GetRate}"/>
                 <DataGridTextColumn Header="発動場所" Width="110" IsReadOnly="True"
                                             Binding="{Binding Place}"/>
-                <DataGridTextColumn Header="術者" Width="135" IsReadOnly="True"
+                <DataGridTextColumn Header="敵機" Width="135" IsReadOnly="True"
                                             Binding="{Binding Enemy}"/>
             </DataGrid.Columns>
             <DataGrid.ContextMenu>
