@@ -175,6 +175,7 @@ namespace ThSpellCardRecordViewer
             GameComboBox.IsEnabled = !enabled;
             OpenScoreFileMenuItem.IsEnabled = !enabled;
             OpenScoreFileButton.IsEnabled = !enabled;
+            ReloadMenuItem.IsEnabled = !enabled;
         }
 
         private void ConfigureMainWindowSettings()
