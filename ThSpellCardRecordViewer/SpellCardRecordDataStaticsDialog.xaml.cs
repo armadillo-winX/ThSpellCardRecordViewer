@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-namespace ThSpellCardRecordViewer
+﻿namespace ThSpellCardRecordViewer
 {
     /// <summary>
     /// SpellCardRecordDataStaticsDialog.xaml の相互作用ロジック
@@ -11,29 +9,14 @@ namespace ThSpellCardRecordViewer
         {
             InitializeComponent();
 
-            ObservableCollection<SpellCardRecordData>? spellCardRecordDatas
-                = SpellCardRecord.SpellCardRecordDataLists;
-            if (spellCardRecordDatas != null &&
-                spellCardRecordDatas.Count > 0)
+            SpellCardRecordStatics spellCardRecordStatics
+                = SpellCardRecordStatics.CalculateSpellCardRecordStatics();
+            if (spellCardRecordStatics != null)
             {
-                double allSpellCardCount = spellCardRecordDatas.Count;
-                double getSpellCardCount = 0;
-                double challengeSpellCardCount = 0;
-                foreach (SpellCardRecordData spellCardRecordData in spellCardRecordDatas)
-                {
-                    if (int.Parse(spellCardRecordData.Get) > 0)
-                        getSpellCardCount++;
-
-                    if (int.Parse(spellCardRecordData.Challenge) > 0)
-                        challengeSpellCardCount++;
-                }
-
-                string getCardCountRate = Calculator.CalcSpellCardGetRate(getSpellCardCount, allSpellCardCount);
-
-                AllSpellCardCountBlock.Text = allSpellCardCount.ToString();
-                GetSpellCardCountBlock.Text = getSpellCardCount.ToString();
-                ChallengeSpellCardCountBlock.Text = challengeSpellCardCount.ToString();
-                GetCardCountRateBlock.Text = getCardCountRate;
+                AllSpellCardCountBlock.Text = spellCardRecordStatics.AllSpellCardCount;
+                GetSpellCardCountBlock.Text = spellCardRecordStatics.GetSpellCardCount;
+                ChallengeSpellCardCountBlock.Text = spellCardRecordStatics.ChallengeSpellCardCount;
+                GetCardCountRateBlock.Text = spellCardRecordStatics.GetSpellCardCountRate;
             }
         }
 
