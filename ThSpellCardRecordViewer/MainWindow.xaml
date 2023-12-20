@@ -56,7 +56,7 @@
         <DataGrid x:Name="SpellCardRecordDataGrid"
                   Margin="10,79,10,10"
                   AutoGenerateColumns="False"
-                  ItemsSource="{Binding}">
+                  ItemsSource="{Binding}" SelectionChanged="SpellCardRecordDataGridSelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Width="30" IsReadOnly="True"
                                             Binding="{Binding CardId}"/>
@@ -73,6 +73,11 @@
                 <DataGridTextColumn Header="術者" Width="135" IsReadOnly="True"
                                             Binding="{Binding Enemy}"/>
             </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu x:Name="SpellCardRecordDataGridContextMenu">
+                    <MenuItem x:Name="ViewSpellCardRecordDetailMenuItem" Header="詳細を表示(_D)" Click="ViewSpellCardRecordDetailMenuItemClick"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
         </DataGrid>
         <Button x:Name="EnemyFilterButton"
                 Content="敵機フィルター" 

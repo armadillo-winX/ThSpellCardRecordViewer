@@ -29,6 +29,8 @@ namespace ThSpellCardRecordViewer
     /// </summary>
     public partial class MainWindow : Window
     {
+        private SpellCardRecordDetailDialog? _spellCardRecordDetailDialog = null;
+
         private string? _appName = VersionInfo.AppName;
         private string? _gameId;
         private string? _enemyFilter;
@@ -384,6 +386,46 @@ namespace ThSpellCardRecordViewer
             else
             {
                 ApplicationTheme.ThemeName = "Light";
+            }
+        }
+
+        private void ViewSpellCardRecordDetailMenuItemClick(object sender, RoutedEventArgs e)
+        {
+            if (SpellCardRecordDataGrid.SelectedIndex >= 0)
+            {
+                SpellCardRecordData spellCardRecordData = (SpellCardRecordData)SpellCardRecordDataGrid.SelectedItem;
+
+                if (_spellCardRecordDetailDialog == null ||
+                !_spellCardRecordDetailDialog.IsLoaded)
+                {
+                    _spellCardRecordDetailDialog = new SpellCardRecordDetailDialog
+                    {
+                        Owner = this,
+                        DataContext = spellCardRecordData
+                    };
+                    _spellCardRecordDetailDialog.Show();
+                }
+                else
+                {
+                    _spellCardRecordDetailDialog.DataContext = spellCardRecordData;
+                    _spellCardRecordDetailDialog.WindowState = WindowState.Normal;
+                    _spellCardRecordDetailDialog.Activate();
+                }
+            }
+        }
+
+        private void SpellCardRecordDataGridSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SpellCardRecordDataGrid.SelectedIndex >= 0)
+            {
+                SpellCardRecordData spellCardRecordData = (SpellCardRecordData)SpellCardRecordDataGrid.SelectedItem;
+
+                if (_spellCardRecordDetailDialog != null &&
+                _spellCardRecordDetailDialog.IsLoaded)
+                {
+                    _spellCardRecordDetailDialog.DataContext = spellCardRecordData;
+                    _spellCardRecordDetailDialog.WindowState = WindowState.Normal;
+                }
             }
         }
     }
