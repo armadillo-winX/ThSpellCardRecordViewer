@@ -164,6 +164,7 @@ namespace ThSpellCardRecordViewer
         private void EnableLimitationMode(bool enabled)
         {
             GameComboBox.IsEnabled = !enabled;
+            SpellCardRecordDataGrid.IsEnabled = !enabled;
             OpenScoreFileMenuItem.IsEnabled = !enabled;
             OpenScoreFileButton.IsEnabled = !enabled;
             ReloadMenuItem.IsEnabled = !enabled;
