@@ -5,36 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ThSpellCardRecordViewer"
         mc:Ignorable="d"
-        Title="御札戦歴詳細" Height="327" Width="322" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner">
+        Title="御札戦歴詳細" Height="435" Width="406" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner">
     <Grid>
-        <Button x:Name="CloseButton"
-                Content="閉じる"
-                Width="90" Margin="0,0,0,10" HorizontalAlignment="Center" Click="CloseButtonClick" Height="24" VerticalAlignment="Bottom" />
         <TextBlock Margin="10,10,10,0" TextWrapping="Wrap" Text="{Binding CardName}" VerticalAlignment="Top" TextAlignment="Center"
                    FontSize="18"/>
         <Label Content="ID" 
-               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,39,0,0" FontSize="16" />
-        <TextBlock Margin="0,44,10,0" TextWrapping="Wrap" Text="{Binding CardId}" VerticalAlignment="Top" TextAlignment="Center"
-                   FontSize="16" HorizontalAlignment="Right" Width="196"/>
+               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,39,0,0" />
+        <TextBlock Margin="91,43,10,0" TextWrapping="Wrap" Text="{Binding CardId}" VerticalAlignment="Top" TextAlignment="Center" FontSize="14"/>
         <Label Content="取得数" 
-               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,70,0,0" FontSize="16" />
-        <TextBlock Margin="116,75,11,0" TextWrapping="Wrap" Text="{Binding Get}" VerticalAlignment="Top" TextAlignment="Center"
-                   FontSize="16"/>
+               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,65,0,0" />
+        <TextBlock Margin="91,69,11,0" TextWrapping="Wrap" Text="{Binding Get}" VerticalAlignment="Top" TextAlignment="Center" FontSize="14"/>
         <Label Content="挑戦数" 
-               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,101,0,0" FontSize="16" />
-        <TextBlock Margin="116,106,10,0" TextWrapping="Wrap" Text="{Binding Challenge}" VerticalAlignment="Top" TextAlignment="Center"
-                   FontSize="16"/>
+               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,91,0,0" />
+        <TextBlock Margin="91,95,10,0" TextWrapping="Wrap" Text="{Binding Challenge}" VerticalAlignment="Top" TextAlignment="Center" FontSize="14"/>
         <Label Content="取得率" 
-               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,132,0,0" FontSize="16" />
-        <TextBlock Margin="0,137,11,0" TextWrapping="Wrap" Text="{Binding GetRate}" VerticalAlignment="Top" TextAlignment="Center"
-                   FontSize="16" HorizontalAlignment="Right" Width="195"/>
+               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,117,0,0" />
+        <TextBlock Margin="91,121,11,0" TextWrapping="Wrap" Text="{Binding GetRate}" VerticalAlignment="Top" TextAlignment="Center" FontSize="14"/>
         <Label Content="敵機" 
-               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,163,0,0" FontSize="16" />
-        <TextBlock Margin="0,168,11,0" TextWrapping="Wrap" Text="{Binding Enemy}" VerticalAlignment="Top" TextAlignment="Center"
-                   FontSize="16" HorizontalAlignment="Right" Width="195"/>
+               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,146,0,0" />
+        <TextBlock Margin="91,150,11,0" TextWrapping="Wrap" Text="{Binding Enemy}" VerticalAlignment="Top" TextAlignment="Center" FontSize="14"/>
         <Label Content="発動場所" 
-               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="11,194,0,0" FontSize="16" />
-        <TextBlock Margin="0,199,10,0" TextWrapping="Wrap" Text="{Binding Place}" VerticalAlignment="Top" TextAlignment="Center"
-                   FontSize="16" HorizontalAlignment="Right" Width="196"/>
+               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,172,0,0" />
+        <TextBlock Margin="91,176,10,0" TextWrapping="Wrap" Text="{Binding Place}" VerticalAlignment="Top" TextAlignment="Center" FontSize="14"/>
+        <Label Content="自機別御札戦歴:" HorizontalAlignment="Left" Margin="10,203,0,0" VerticalAlignment="Top"/>
+        <DataGrid x:Name="IndividualSpellCardRecordGrid"
+                  Margin="10,229,11,10"
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="自機" Width="135" IsReadOnly="True"
+                                            Binding="{Binding Player}"/>
+                <DataGridTextColumn Header="取得数" Width="50" IsReadOnly="True"
+                                            Binding="{Binding Get}"/>
+                <DataGridTextColumn Header="挑戦数" Width="50" IsReadOnly="True"
+                                            Binding="{Binding Challenge}"/>
+                <DataGridTextColumn Header="取得率" Width="75" IsReadOnly="True"
+                                            Binding="{Binding GetRate}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

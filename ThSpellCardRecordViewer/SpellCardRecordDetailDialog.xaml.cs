@@ -5,14 +5,23 @@
     /// </summary>
     public partial class SpellCardRecordDetailDialog : Window
     {
+        internal SpellCardRecordData SpellCardRecordData
+        {
+            set
+            {
+                this.DataContext = value;
+
+                if (value != null && value.IndividualSpellCards != null) 
+                {
+                    IndividualSpellCardRecordGrid.AutoGenerateColumns = false;
+                    IndividualSpellCardRecordGrid.DataContext = value.IndividualSpellCards;
+                }
+            }
+        }
+
         public SpellCardRecordDetailDialog()
         {
             InitializeComponent();
-        }
-
-        private void CloseButtonClick(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
     }
 }

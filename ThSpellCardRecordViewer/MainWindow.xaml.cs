@@ -386,7 +386,10 @@ namespace ThSpellCardRecordViewer
         {
             if (SpellCardRecordDataGrid.SelectedIndex >= 0)
             {
-                SpellCardRecordData spellCardRecordData = (SpellCardRecordData)SpellCardRecordDataGrid.SelectedItem;
+                int cardId = int.Parse(((SpellCardRecordData)SpellCardRecordDataGrid.SelectedItem).CardId);
+
+                SpellCardRecordData spellCardRecordData
+                    = SpellCardRecord.SpellCardRecordDataLists[cardId - 1];
 
                 if (_spellCardRecordDetailDialog == null ||
                 !_spellCardRecordDetailDialog.IsLoaded)
@@ -394,13 +397,13 @@ namespace ThSpellCardRecordViewer
                     _spellCardRecordDetailDialog = new SpellCardRecordDetailDialog
                     {
                         Owner = this,
-                        DataContext = spellCardRecordData
+                        SpellCardRecordData = spellCardRecordData
                     };
                     _spellCardRecordDetailDialog.Show();
                 }
                 else
                 {
-                    _spellCardRecordDetailDialog.DataContext = spellCardRecordData;
+                    _spellCardRecordDetailDialog.SpellCardRecordData = spellCardRecordData;
                     _spellCardRecordDetailDialog.WindowState = WindowState.Normal;
                     _spellCardRecordDetailDialog.Activate();
                 }
@@ -411,12 +414,15 @@ namespace ThSpellCardRecordViewer
         {
             if (SpellCardRecordDataGrid.SelectedIndex >= 0)
             {
-                SpellCardRecordData spellCardRecordData = (SpellCardRecordData)SpellCardRecordDataGrid.SelectedItem;
+                int cardId = int.Parse(((SpellCardRecordData)SpellCardRecordDataGrid.SelectedItem).CardId);
+
+                SpellCardRecordData spellCardRecordData 
+                    = SpellCardRecord.SpellCardRecordDataLists[cardId - 1];
 
                 if (_spellCardRecordDetailDialog != null &&
                 _spellCardRecordDetailDialog.IsLoaded)
                 {
-                    _spellCardRecordDetailDialog.DataContext = spellCardRecordData;
+                    _spellCardRecordDetailDialog.SpellCardRecordData = spellCardRecordData;
                     _spellCardRecordDetailDialog.WindowState = WindowState.Normal;
                 }
             }

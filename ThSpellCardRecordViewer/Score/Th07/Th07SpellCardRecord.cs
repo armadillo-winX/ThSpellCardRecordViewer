@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.ObjectModel;
+using System.Text;
 
 namespace ThSpellCardRecordViewer.Score.Th07
 {
@@ -82,24 +83,97 @@ namespace ThSpellCardRecordViewer.Score.Th07
 
             int cardId = BitConverter.ToInt16(cardIdData, 0) + 1;
 
-            int allChangeCount = Convert.ToInt32(BitConverter.ToString(allChallengeCountData, 0).Replace("-", ""), 16);
+            int allChallenge = Convert.ToInt32(BitConverter.ToString(allChallengeCountData, 0).Replace("-", ""), 16);
             int allGetCount = Convert.ToInt32(BitConverter.ToString(allGetCountData, 0).Replace("-", ""), 16);
+
+            int reimuAChallengeCount = Convert.ToInt32(BitConverter.ToString(reimuAChallengeCountData, 0).Replace("-", ""), 16);
+            int reimuBChallengeCount = Convert.ToInt32(BitConverter.ToString(reimuBChallengeCountData, 0).Replace("-", ""), 16);
+            int marisaAChallengeCount = Convert.ToInt32(BitConverter.ToString(marisaAChallengeCountData, 0).Replace("-", ""), 16);
+            int marisaBChallengeCount = Convert.ToInt32(BitConverter.ToString(marisaBChallengeCountData, 0).Replace("-", ""), 16);
+            int sakuyaAChallengeCount = Convert.ToInt32(BitConverter.ToString(sakuyaAChallengeCountData, 0).Replace("-", ""), 16);
+            int sakuyaBChallengeCount = Convert.ToInt32(BitConverter.ToString(sakuyaBChallengeCountData, 0).Replace("-", ""), 16);
+
+            int reimuAGetCount = Convert.ToInt32(BitConverter.ToString(reimuAGetCountData, 0).Replace("-", ""), 16);
+            int reimuBGetCount = Convert.ToInt32(BitConverter.ToString(reimuBGetCountData, 0).Replace("-", ""), 16);
+            int marisaAGetCount = Convert.ToInt32(BitConverter.ToString(marisaAGetCountData, 0).Replace("-", ""), 16);
+            int marisaBGetCount = Convert.ToInt32(BitConverter.ToString(marisaBGetCountData, 0).Replace("-", ""), 16);
+            int sakuyaAGetCount = Convert.ToInt32(BitConverter.ToString(sakuyaAGetCountData, 0).Replace("-", ""), 16);
+            int sakuyaBGetCount = Convert.ToInt32(BitConverter.ToString(sakuyaBGetCountData, 0).Replace("-", ""), 16);
+
+            IndividualSpellCardRecordData reimuASpellCardRecordData = new()
+            {
+                Player = GamePlayers.GetGamePlayers(GameIndex.Th07)[0],
+                Get = reimuAGetCount.ToString(),
+                Challenge = reimuAChallengeCount.ToString(),
+                GetRate = Calculator.CalcSpellCardGetRate(reimuAGetCount, reimuAChallengeCount)
+            };
+
+            IndividualSpellCardRecordData reimuBSpellCardRecordData = new()
+            {
+                Player = GamePlayers.GetGamePlayers(GameIndex.Th07)[1],
+                Get = reimuBGetCount.ToString(),
+                Challenge = reimuBChallengeCount.ToString(),
+                GetRate = Calculator.CalcSpellCardGetRate(reimuBGetCount, reimuBChallengeCount)
+            };
+
+            IndividualSpellCardRecordData marisaASpellCardRecordData = new()
+            {
+                Player = GamePlayers.GetGamePlayers(GameIndex.Th07)[2],
+                Get = marisaAGetCount.ToString(),
+                Challenge = marisaAChallengeCount.ToString(),
+                GetRate = Calculator.CalcSpellCardGetRate(marisaAGetCount, marisaAChallengeCount)
+            };
+
+            IndividualSpellCardRecordData marisaBSpellCardRecordData = new()
+            {
+                Player = GamePlayers.GetGamePlayers(GameIndex.Th07)[3],
+                Get = marisaBGetCount.ToString(),
+                Challenge = marisaBChallengeCount.ToString(),
+                GetRate= Calculator.CalcSpellCardGetRate(marisaBGetCount, marisaBChallengeCount)
+            };
+
+            IndividualSpellCardRecordData sakuyaASpellCardRecordData = new()
+            {
+                Player = GamePlayers.GetGamePlayers(GameIndex.Th07)[4],
+                Get = sakuyaAGetCount.ToString(),
+                Challenge = sakuyaAChallengeCount.ToString(),
+                GetRate = Calculator.CalcSpellCardGetRate(sakuyaAGetCount, sakuyaAChallengeCount)
+            };
+
+            IndividualSpellCardRecordData sakuyaBSpellCardRecordData = new()
+            {
+                Player = GamePlayers.GetGamePlayers(GameIndex.Th07)[5],
+                Get = sakuyaBGetCount.ToString(),
+                Challenge = sakuyaBChallengeCount.ToString(),
+                GetRate = Calculator.CalcSpellCardGetRate(sakuyaBGetCount, sakuyaBChallengeCount)
+            };
+
+            ObservableCollection<IndividualSpellCardRecordData> individualSpellCardRecordDatas = new()
+            {
+                reimuASpellCardRecordData,
+                reimuBSpellCardRecordData,
+                marisaASpellCardRecordData,
+                marisaBSpellCardRecordData,
+                sakuyaASpellCardRecordData,
+                sakuyaBSpellCardRecordData
+            };
 
             SpellCardInfo spellcardData = SpellCardInfo.GetSpellCardInfo(GameIndex.Th07, cardId);
             string? cardName
-                = displayUnchallengedCard ? spellcardData.CardName : allChangeCount != 0 ? spellcardData.CardName : "----------------";
+                = displayUnchallengedCard ? spellcardData.CardName : allChallenge != 0 ? spellcardData.CardName : "----------------";
 
-            string rate = Calculator.CalcSpellCardGetRate(allGetCount, allChangeCount);
+            string rate = Calculator.CalcSpellCardGetRate(allGetCount, allChallenge);
 
             SpellCardRecordData spellCardRecordList = new()
             {
                 CardId = cardId.ToString(),
                 CardName = cardName,
-                Challenge = allChangeCount.ToString(),
+                Challenge = allChallenge.ToString(),
                 Get = allGetCount.ToString(),
                 GetRate = rate,
                 Enemy = spellcardData.Enemy,
-                Place = spellcardData.Place
+                Place = spellcardData.Place,
+                IndividualSpellCards = individualSpellCardRecordDatas
             };
             return spellCardRecordList;
         }
