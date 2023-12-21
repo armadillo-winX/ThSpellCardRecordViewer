@@ -1,4 +1,6 @@
-﻿namespace ThSpellCardRecordViewer.Score
+﻿using System.Collections.ObjectModel;
+
+namespace ThSpellCardRecordViewer.Score
 {
     internal class SpellCardRecordData
     {
@@ -15,5 +17,7 @@
         public string? Place { get; set; }
 
         public string? Enemy { get; set; }
+
+        public ObservableCollection<IndividualSpellCardRecordData>? IndividualSpellCards { get; set;}
     }
 }
