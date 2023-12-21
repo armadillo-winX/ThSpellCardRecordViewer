@@ -384,7 +384,9 @@ namespace ThSpellCardRecordViewer
 
         private void ViewSpellCardRecordDetailMenuItemClick(object sender, RoutedEventArgs e)
         {
-            if (SpellCardRecordDataGrid.SelectedIndex >= 0)
+            if (SpellCardRecord.SpellCardRecordDataLists != null 
+                && SpellCardRecord.SpellCardRecordDataLists.Count > 0
+                && SpellCardRecordDataGrid.SelectedIndex >= 0)
             {
                 int cardId = int.Parse(((SpellCardRecordData)SpellCardRecordDataGrid.SelectedItem).CardId);
 
@@ -412,7 +414,9 @@ namespace ThSpellCardRecordViewer
 
         private void SpellCardRecordDataGridSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (SpellCardRecordDataGrid.SelectedIndex >= 0)
+            if (SpellCardRecord.SpellCardRecordDataLists != null
+                && SpellCardRecord.SpellCardRecordDataLists.Count > 0
+                && SpellCardRecordDataGrid.SelectedIndex >= 0)
             {
                 int cardId = int.Parse(((SpellCardRecordData)SpellCardRecordDataGrid.SelectedItem).CardId);
 
