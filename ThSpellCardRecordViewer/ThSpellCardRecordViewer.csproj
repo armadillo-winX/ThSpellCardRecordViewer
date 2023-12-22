@@ -13,6 +13,7 @@
     <Version>$(VersionPrefix)$(VersionSuffix)</Version>
 	  <VersionPrefix>0.1.0</VersionPrefix>
 	  <VersionSuffix>beta</VersionSuffix>
+	  <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
   </PropertyGroup>
 
   <ItemGroup>
