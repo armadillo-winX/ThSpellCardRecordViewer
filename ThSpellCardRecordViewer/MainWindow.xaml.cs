@@ -387,7 +387,8 @@ namespace ThSpellCardRecordViewer
         {
             if (SpellCardRecord.SpellCardRecordDataLists != null 
                 && SpellCardRecord.SpellCardRecordDataLists.Count > 0
-                && SpellCardRecordDataGrid.SelectedIndex >= 0)
+                && SpellCardRecordDataGrid.SelectedIndex >= 0
+                && SpellCardRecordDataGrid.SelectedIndex < SpellCardRecord.SpellCardRecordDataLists.Count)
             {
                 int cardId = int.Parse(((SpellCardRecordData)SpellCardRecordDataGrid.SelectedItem).CardId);
 
@@ -417,7 +418,8 @@ namespace ThSpellCardRecordViewer
         {
             if (SpellCardRecord.SpellCardRecordDataLists != null
                 && SpellCardRecord.SpellCardRecordDataLists.Count > 0
-                && SpellCardRecordDataGrid.SelectedIndex >= 0)
+                && SpellCardRecordDataGrid.SelectedIndex >= 0
+                && SpellCardRecordDataGrid.SelectedIndex < SpellCardRecord.SpellCardRecordDataLists.Count)
             {
                 int cardId = int.Parse(((SpellCardRecordData)SpellCardRecordDataGrid.SelectedItem).CardId);
 
@@ -453,7 +455,8 @@ namespace ThSpellCardRecordViewer
 
         private void CopySpellCardRecordMenuItemClick(object sender, RoutedEventArgs e)
         {
-            if (SpellCardRecordDataGrid.SelectedIndex > -1)
+            if (SpellCardRecordDataGrid.SelectedIndex > -1
+                && SpellCardRecordDataGrid.SelectedIndex < SpellCardRecord.SpellCardRecordDataLists.Count)
             {
                 SpellCardRecordData spellCardRecordData = (SpellCardRecordData)SpellCardRecordDataGrid.SelectedItem;
 
